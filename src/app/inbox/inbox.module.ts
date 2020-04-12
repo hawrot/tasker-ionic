@@ -4,16 +4,24 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { InboxPageRoutingModule } from './inbox-routing.module';
 
 import { InboxPage } from './inbox.page';
+import {Router, RouterModule, Routes} from "@angular/router";
+
+const routes: Routes = [
+  {
+    path: '',
+    component: InboxPage
+  }
+];
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    InboxPageRoutingModule
+      RouterModule.forChild(routes)
+
   ],
   declarations: [InboxPage]
 })

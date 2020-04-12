@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Task} from "../tasks/task.model";
+import {TasksService} from "../tasks/tasks.service";
+import {MenuController} from "@ionic/angular";
 
 @Component({
   selector: 'app-inbox',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InboxPage implements OnInit {
 
-  constructor() { }
+  loadedTasks: Task[];
+
+
+  constructor(private tasksService: TasksService, private menu: MenuController) { }
+
+
 
   ngOnInit() {
+    this.loadedTasks = this.tasksService.tasks;
   }
 
 }
