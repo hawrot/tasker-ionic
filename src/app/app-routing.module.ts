@@ -16,6 +16,10 @@ const routes: Routes = [
     path: 'projects',
     loadChildren: () => import('./projects/projects.module').then( m => m.ProjectsPageModule)
   },
+  {
+    path: 'task-detail',
+    loadChildren: () => import('./inbox/task-detail/task-detail.module').then( m => m.TaskDetailPageModule)
+  },
 ];
 
 @NgModule({
