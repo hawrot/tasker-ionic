@@ -4,7 +4,9 @@ export class Task{
         public title: string,
         public description: string,
         public createdAt: Date,
-        public dueDate: Date
+        public dueDate: Date,
+        public status: string,
+        public assigned: boolean
     ) {
     }
 }

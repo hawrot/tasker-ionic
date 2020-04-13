@@ -12,6 +12,10 @@ const routes: Routes = [
   {
     path: '',
     component: InboxPage
+  },
+  {
+    path: ':taskId',
+    loadChildren: () => import('./task-detail/task-detail.module').then(m => m.TaskDetailPageModule)
   }
 ];
 
