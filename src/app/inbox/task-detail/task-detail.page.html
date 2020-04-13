@@ -1,9 +1,24 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>task-detail</ion-title>
+    <ion-title>{{task.title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+<ion-grid>
+  <ion-row>
+    <ion-col offset-md="6" offset-md="3">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{task.description}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p> <b>Due date:</b> {{task.dueDate.toDateString()}} </p>
+          <p> <b>Status:</b> {{task.status}} </p>
+          <p><b>Assigned to the project: </b>{{task.assigned}} </p>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
 </ion-content>

@@ -34,7 +34,11 @@
                    </ion-col>
                    <ion-col size="2" align="right">
 
-                     <ion-button (click)="onCardClick()">
+                     <ion-button [routerLink]="[
+                '/',
+                'inbox',
+                loadedTasks.id
+              ]">
                        <ion-icon name="create-outline" slot="icon-only"></ion-icon>
                      </ion-button>
                      <ion-button color="danger">

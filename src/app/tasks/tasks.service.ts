@@ -7,6 +7,8 @@ import {Task} from "./task.model";
 })
 export class TasksService {
 
+  private _phisicalTasks: Task[];
+
   private _tasks: Task[] = [
     new Task(
         't1',
@@ -32,6 +34,13 @@ export class TasksService {
 
   get tasks(){
     return [...this._tasks];
+  }
+
+  getTasks(id: string){
+    return {...this._tasks.find(p => p.id === id)};
+  }
+  getTask(id: string){
+    return {...this._tasks.find(p => p.id === id)};
   }
 
   constructor() { }

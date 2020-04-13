@@ -24,5 +24,8 @@ export class InboxPage implements OnInit {
   onCardClick(){
     console.log('It works!' + event);
   }
+  onEdit(taskId : string){
+    console.log('task id: ' + taskId);
+  }
 
 }
