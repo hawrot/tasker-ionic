@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Task} from "./task.model";
+import {BehaviorSubject} from "rxjs";
+import {map, take} from "rxjs/operators";
 
 
 @Injectable({
@@ -9,7 +11,9 @@ export class TasksService {
 
   private _phisicalTasks: Task[];
 
-  private _tasks: Task[] = [
+  constructor() { }
+
+  private _tasks = new BehaviorSubject<Task[]> ([
     new Task(
         't1',
         'Task nr 1',
@@ -30,18 +34,33 @@ export class TasksService {
       false
 
     )
-  ];
+  ]);
+
+  addTask(title: string, description: string, dueDate, dueTime){
+    const newTask = new Task(
+        Math.random().toString(),
+        title,
+        description,
+        new Date(Date.now()),
+        new Date(dueDate),
+        "open",
+        false
+    )
+  }
 
   get tasks(){
-    return [...this._tasks];
+    return this._tasks.asObservable();
   }
 
   getTasks(id: string){
-    return {...this._tasks.find(p => p.id === id)};
+    return this.tasks.pipe(take(1));
   }
   getTask(id: string){
-    return {...this._tasks.find(p => p.id === id)};
+    return this.tasks.pipe(take(1), map(tasks =>{
+      return{...tasks.find(t => t.id === id)}
+    }));
   }
 
-  constructor() { }
+
+
 }
