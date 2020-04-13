@@ -13,7 +13,9 @@ export class TasksService {
         'Task nr 1',
         'This is a test task 1',
         new Date(Date.now()),
-        new Date(Date.now())
+        new Date(Date.now()),
+        "open",
+        false
 
     ),
     new Task(
@@ -21,7 +23,9 @@ export class TasksService {
         'Task nr 2',
         'This is a test task 2',
         new Date(Date.now()),
-        new Date(Date.now())
+        new Date(Date.now()),
+      "open",
+      false
 
     )
   ];

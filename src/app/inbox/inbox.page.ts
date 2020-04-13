@@ -21,4 +21,8 @@ export class InboxPage implements OnInit {
     this.loadedTasks = this.tasksService.tasks;
   }
 
+  onCardClick(){
+    console.log('It works!' + event);
+  }
+
 }
