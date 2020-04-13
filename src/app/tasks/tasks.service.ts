@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Task} from "./task.model";
 import {BehaviorSubject} from "rxjs";
-import {map, take} from "rxjs/operators";
+import {map, take, tap} from "rxjs/operators";
 
 
 @Injectable({
@@ -9,7 +9,6 @@ import {map, take} from "rxjs/operators";
 })
 export class TasksService {
 
-  private _phisicalTasks: Task[];
 
   constructor() { }
 
@@ -20,6 +19,7 @@ export class TasksService {
         'This is a test task 1',
         new Date(Date.now()),
         new Date(Date.now()),
+        "13:22",
         "open",
         false
 
@@ -30,6 +30,7 @@ export class TasksService {
         'This is a test task 2',
         new Date(Date.now()),
         new Date(Date.now()),
+      "13:22",
       "open",
       false
 
@@ -43,9 +44,14 @@ export class TasksService {
         description,
         new Date(Date.now()),
         new Date(dueDate),
+        dueTime,
         "open",
         false
-    )
+    );
+
+    return this.tasks.pipe(take(1), tap(tasks =>{
+      this._tasks.next(tasks.concat(newTask));
+    }))
   }
 
   get tasks(){
