@@ -1,7 +1,9 @@
+import {Task} from "../tasks/task.model";
+
 export class Project {
     constructor(
         public title: string,
-        public tasks = [Project],
+        public tasks: [],
         public dueDate: Date,
         public taskCount: number
     ) {
