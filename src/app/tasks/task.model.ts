@@ -3,8 +3,8 @@ export class Task{
         public id: string,
         public title: string,
         public description: string,
-        public createdAt: Date,
-        public dueDate: Date,
+        public createdAt: string,
+        public dueDate: string,
         public dueTime: string,
         public status: string,
         public assigned: boolean
