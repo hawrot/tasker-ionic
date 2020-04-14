@@ -24,30 +24,7 @@ export class TasksService {
 
 private _tasks = new BehaviorSubject<Task[]>([]);
 
-  /*private _tasks = new BehaviorSubject<Task[]> ([
-    new Task(
-        't1',
-        'Task nr 1',
-        'This is a test task 1',
-        "2020-04-20",
-        "2020-04-20",
-        "13:22",
-        "open",
-        false
 
-    ),
-    new Task(
-        't2',
-        'Task nr 2',
-        'This is a test task 2',
-        "2020-04-20",
-        "2020-04-20",
-      "13:22",
-      "open",
-      false
-
-    )
-  ]);*/
   constructor(private http: HttpClient) { }
 
   fetchPlaces(){
@@ -59,8 +36,8 @@ private _tasks = new BehaviorSubject<Task[]>([]);
               tasks.push(new Task(
                   key, resData[key].title,
                   resData[key].description,
-                  resData[key].createdAt,
-                  resData[key].dueDate,
+                  new Date(resData[key].createdAt),
+                  new Date(resData[key].dueDate),
                   resData[key].dueTime,
                   resData[key].status,
                   resData[key].assigned
@@ -81,8 +58,8 @@ private _tasks = new BehaviorSubject<Task[]>([]);
         Math.random().toString(),
         title,
         description,
-        new Date(Date.now()).toDateString(),
-        dueDate,
+        new Date(Date.now()),
+        new Date(dueDate),
         dueTime,
         "open",
         false
