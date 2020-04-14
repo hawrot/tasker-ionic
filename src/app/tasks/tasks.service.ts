@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Task} from "./task.model";
 import {BehaviorSubject} from "rxjs";
-import {map, take, tap} from "rxjs/operators";
+import {map, switchMap, take, tap} from "rxjs/operators";
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 interface TaskData {
@@ -76,6 +76,7 @@ private _tasks = new BehaviorSubject<Task[]>([]);
   };
 
   addTask(title: string, description: string, dueDate, dueTime){
+    let generatedId: string;
     const newTask = new Task(
         Math.random().toString(),
         title,
@@ -87,9 +88,19 @@ private _tasks = new BehaviorSubject<Task[]>([]);
         false
     );
 
-    return this.tasks.pipe(take(1), tap(tasks =>{
-      this._tasks.next(tasks.concat(newTask));
-    }))
+    return this.http.post<{name: string}>('https://honours-matthawrot.firebaseio.com/tasks.json', {
+      ...newTask,
+      id: null
+    }).pipe(switchMap(resData =>{
+      generatedId = resData.name;
+      return this.tasks;
+    }),
+        take(1),
+        tap(tasks =>{
+          newTask.id = generatedId;
+          this._tasks.next(tasks.concat(newTask));
+        })
+    );
   }
 
   get tasks(){
