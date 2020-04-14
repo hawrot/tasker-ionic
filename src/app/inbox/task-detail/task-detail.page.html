@@ -11,18 +11,27 @@
 <ion-grid>
   <ion-row>
     <ion-col offset-md="6" offset-md="3">
-      <ion-card >
-        <ion-card-header>
-          <ion-card-title>{{task.description}}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <p> <b>DUE DATE:</b> {{task.dueDate.toDateString()}} </p>
-          <p> <b>DUE TIME:</b> {{task.dueTime}} </p>
-          <p> <b>CREATED:</b> {{task.createdAt.toDateString()}} </p>
-          <p> <b>STATUS:</b> {{task.status}} </p>
-          <p><b>TASK ASSIGNED: </b>{{task.assigned}} </p>
-
-        </ion-card-content>
+      <ion-card>
+        <ion-item>
+          <ion-label position="floating">Description:</ion-label>
+          <ion-input readonly="" value="{{task.description}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Due Date:</ion-label>
+          <ion-input readonly="" value="{{task.dueDate.toDateString()}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Due Time:</ion-label>
+          <ion-input readonly="" value="{{task.dueTime}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Status:</ion-label>
+          <ion-input readonly="" value="{{task.status}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Assigned:</ion-label>
+          <ion-input readonly="" value="{{task.assigned}}"></ion-input>
+        </ion-item>
       </ion-card>
     </ion-col>
   </ion-row>
