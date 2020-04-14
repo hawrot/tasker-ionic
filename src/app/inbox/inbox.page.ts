@@ -15,6 +15,7 @@ export class InboxPage implements OnInit, OnDestroy {
 
   loadedTasks: Task[];
   private tasksSub: Subscription;
+  isLoading = false;
 
 
 
@@ -26,6 +27,12 @@ export class InboxPage implements OnInit, OnDestroy {
    this.tasksSub = this.tasksService.tasks.subscribe(tasks =>{
      this.loadedTasks = tasks;
    })
+  }
+  ionViewWillEnter(){
+    this.isLoading = true;
+    this.tasksService.fetchPlaces().subscribe(()=>{
+      this.isLoading = false;
+    })
   }
 
   ngOnDestroy(): void {
