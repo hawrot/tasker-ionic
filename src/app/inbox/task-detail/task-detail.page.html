@@ -11,16 +11,16 @@
 <ion-grid>
   <ion-row>
     <ion-col offset-md="6" offset-md="3">
-      <ion-card>
+      <ion-card >
         <ion-card-header>
           <ion-card-title>{{task.description}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <p> <b>Due date:</b> {{task.dueDate}} </p>
-          <p> <b>Due Time:</b> {{task.dueTime}} </p>
-          <p> <b>Created at:</b> {{task.createdAt}} </p>
-          <p> <b>Status:</b> {{task.status}} </p>
-          <p><b>Assigned to the project: </b>{{task.assigned}} </p>
+          <p> <b>DUE DATE:</b> {{task.dueDate.toDateString()}} </p>
+          <p> <b>DUE TIME:</b> {{task.dueTime}} </p>
+          <p> <b>CREATED:</b> {{task.createdAt.toDateString()}} </p>
+          <p> <b>STATUS:</b> {{task.status}} </p>
+          <p><b>TASK ASSIGNED: </b>{{task.assigned}} </p>
 
         </ion-card-content>
       </ion-card>
