@@ -51,7 +51,6 @@ export class EditTaskPage implements OnInit, OnDestroy {
                     validators: [Validators.required, Validators.maxLength(180)]
                   }),
                   completed: new FormControl(this.task.completed, {
-                    updateOn: 'blur',
                     validators: [Validators.required]
                   })
                 });
