@@ -4,6 +4,8 @@ import {TasksService} from "../tasks/tasks.service";
 import {IonItemSliding, LoadingController, MenuController} from "@ionic/angular";
 import {Data} from "@angular/router";
 import {Subscription} from "rxjs";
+import {FormControl} from "@angular/forms";
+import {debounceTime} from "rxjs/operators";
 
 @Component({
   selector: 'app-inbox',
@@ -19,13 +21,16 @@ export class InboxPage implements OnInit, OnDestroy {
 
 
 
-  constructor(private tasksService: TasksService, private menu: MenuController, private loadingCtrl: LoadingController) { }
+  constructor(private tasksService: TasksService, private menu: MenuController, private loadingCtrl: LoadingController) {
+
+  }
 
 
 
   ngOnInit() {
    this.tasksSub = this.tasksService.tasks.subscribe(tasks =>{
      this.loadedTasks = tasks;
+
    })
   }
   ionViewWillEnter(){
@@ -56,6 +61,9 @@ export class InboxPage implements OnInit, OnDestroy {
      })
    })
   }
+
+
+
 
 
 }

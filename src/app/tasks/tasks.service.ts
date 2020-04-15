@@ -12,7 +12,7 @@ interface TaskData {
   dueDate: string,
   dueTime: string,
   status: string,
-  assigned: boolean
+  completed: boolean
 
 }
 
@@ -40,7 +40,7 @@ private _tasks = new BehaviorSubject<Task[]>([]);
                   new Date(resData[key].dueDate),
                   resData[key].dueTime,
                   resData[key].status,
-                  resData[key].assigned
+                  resData[key].completed
               ));
             }
           }
@@ -104,5 +104,8 @@ private _tasks = new BehaviorSubject<Task[]>([]);
               }));
 
   }
+
+
+
 
 }
