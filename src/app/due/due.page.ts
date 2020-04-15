@@ -1,8 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TasksService} from "../tasks/tasks.service";
-import {MenuController} from "@ionic/angular";
+import {LoadingController, MenuController} from "@ionic/angular";
 import {Task} from "../tasks/task.model";
 import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-due',
@@ -16,7 +17,7 @@ export class DuePage implements OnInit, OnDestroy {
   isLoading = false;
   filteredTasks: Task[];
 
-  constructor(private tasksService: TasksService, private menu: MenuController) { }
+  constructor(private tasksService: TasksService, private menu: MenuController, private router: Router, private loadingCtrl: LoadingController) { }
 
   ngOnInit() {
     this.tasksSub = this.tasksService.tasks.subscribe(tasks =>{
@@ -41,6 +42,19 @@ export class DuePage implements OnInit, OnDestroy {
 
   getDate(){
    return new Date(Date.now());
+  }
+
+  onEdit(taskId : string){
+    this.router.navigate(['/tasks/edit-task', taskId])
+  }
+
+  onDeleteTask(taskId: string){
+    this.loadingCtrl.create({message: 'Deleting'}).then(loadingEl =>{
+      loadingEl.present();
+      this.tasksService.removeTask(taskId).subscribe(()=>{
+        loadingEl.dismiss();
+      })
+    })
   }
 
 
