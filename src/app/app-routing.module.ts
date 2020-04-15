@@ -20,6 +20,10 @@ const routes: Routes = [
     path: 'due',
     loadChildren: () => import('./due/due.module').then( m => m.DuePageModule)
   },
+  {
+    path: 'completed',
+    loadChildren: () => import('./completed/completed.module').then( m => m.CompletedPageModule)
+  },
 ];
 
 @NgModule({
