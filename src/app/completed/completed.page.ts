@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {Task} from "../tasks/task.model";
 import {TasksService} from "../tasks/tasks.service";
-import {MenuController} from "@ionic/angular";
+import {LoadingController, MenuController} from "@ionic/angular";
 
 @Component({
   selector: 'app-completed',
@@ -16,7 +16,7 @@ export class CompletedPage implements OnInit, OnDestroy {
   isLoading = false;
   filteredTasks: Task[];
 
-  constructor(private tasksService: TasksService, private menu: MenuController) { }
+  constructor(private tasksService: TasksService, private menu: MenuController, private loadingCtrl: LoadingController) { }
 
   ngOnInit() {
     this.tasksSub = this.tasksService.tasks.subscribe(tasks =>{
@@ -37,6 +37,15 @@ export class CompletedPage implements OnInit, OnDestroy {
     if (this.tasksSub){
       this.tasksSub.unsubscribe();
     }
+  }
+
+  onDeleteTask(taskId: string){
+    this.loadingCtrl.create({message: 'Deleting'}).then(loadingEl =>{
+      loadingEl.present();
+      this.tasksService.removeTask(taskId).subscribe(()=>{
+        loadingEl.dismiss();
+      })
+    })
   }
 
 }
