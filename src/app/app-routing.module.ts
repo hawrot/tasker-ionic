@@ -13,12 +13,12 @@ const routes: Routes = [
     loadChildren: () => import('./tasks/tasks.module').then( m => m.TasksPageModule)
   },
   {
-    path: 'projects',
-    loadChildren: () => import('./projects/projects.module').then( m => m.ProjectsPageModule)
-  },
-  {
     path: 'task-detail',
     loadChildren: () => import('./inbox/task-detail/task-detail.module').then( m => m.TaskDetailPageModule)
+  },
+  {
+    path: 'due',
+    loadChildren: () => import('./due/due.module').then( m => m.DuePageModule)
   },
 ];
 
