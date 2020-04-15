@@ -77,6 +77,30 @@ export class EditTaskPage implements OnInit, OnDestroy {
     })
   }
 
+  onUpdate(){
+    if(!this.form.valid){
+      return;
+    }
+    this.loadingController.create({
+      message: 'Updating place'
+    })
+        .then(loadingEl =>{
+          loadingEl.present();
+          this.tasksService
+              .updateTask(
+                  this.task.id,
+                  this.form.value.title,
+                  this.form.value.description,
+                  this.form.value.completed
+              )
+              .subscribe(()=>{
+                loadingEl.dismiss();
+                this.form.reset();
+                this.router.navigate(['/']);
+              });
+        });
+  }
+
   ngOnDestroy(): void {
     if(this.taskSub){
       this.taskSub.unsubscribe();

@@ -105,7 +105,7 @@ private _tasks = new BehaviorSubject<Task[]>([]);
 
   }
 
-updateTask(taskId: string, title: string, description: string){
+updateTask(taskId: string, title: string, description: string, completed: boolean){
       let updatedTasks: Task[];
 
     return this.tasks.pipe(take(1), switchMap(tasks =>{
@@ -120,9 +120,9 @@ updateTask(taskId: string, title: string, description: string){
             const updatedTaskIndex = tasks.findIndex(t => t.id === taskId);
             updatedTasks = [...tasks];
             const oldTasks = updatedTasks[updatedTaskIndex];
-            updatedTasks[updatedTaskIndex] = new  Task(oldTasks.id, title, description, oldTasks.createdAt, oldTasks.dueDate, oldTasks.dueTime, oldTasks.status, oldTasks.completed);
+            updatedTasks[updatedTaskIndex] = new  Task(oldTasks.id, title, description, oldTasks.createdAt, oldTasks.dueDate, oldTasks.dueTime, oldTasks.status, completed);
             this._tasks.next(updatedTasks);
-            return this.http.put('https://honours-matthawrot.firebaseio.com/tasks/${taskId}.json',
+            return this.http.put(`https://honours-matthawrot.firebaseio.com/tasks/${taskId}.json`,
                 {...updatedTasks[updatedTaskIndex], id: null});
 
         }),
