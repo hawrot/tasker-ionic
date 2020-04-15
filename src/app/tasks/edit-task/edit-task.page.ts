@@ -79,6 +79,9 @@ export class EditTaskPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    if(this.taskSub){
+      this.taskSub.unsubscribe();
+    }
   }
 
 }
