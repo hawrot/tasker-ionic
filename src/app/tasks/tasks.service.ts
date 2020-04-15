@@ -93,6 +93,16 @@ private _tasks = new BehaviorSubject<Task[]>([]);
     }));
   }
 
+  removeTask(taskId: string) {
+      return this.http.delete(`https://honours-matthawrot.firebaseio.com/tasks/${taskId}.json`)
+          .pipe(switchMap(() => {
+                  return this.tasks;
+              }),
+              take(1),
+              tap(tasks => {
+                  this._tasks.next(tasks.filter(b => b.id !== taskId));
+              }));
 
+  }
 
 }

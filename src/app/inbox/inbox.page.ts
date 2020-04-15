@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Task} from "../tasks/task.model";
 import {TasksService} from "../tasks/tasks.service";
-import {MenuController} from "@ionic/angular";
+import {IonItemSliding, LoadingController, MenuController} from "@ionic/angular";
 import {Data} from "@angular/router";
 import {Subscription} from "rxjs";
 
@@ -19,7 +19,7 @@ export class InboxPage implements OnInit, OnDestroy {
 
 
 
-  constructor(private tasksService: TasksService, private menu: MenuController) { }
+  constructor(private tasksService: TasksService, private menu: MenuController, private loadingCtrl: LoadingController) { }
 
 
 
@@ -46,6 +46,15 @@ export class InboxPage implements OnInit, OnDestroy {
   }
   onEdit(taskId : string){
     console.log('task id: ' + taskId);
+  }
+
+  onDeleteTask(taskId: string){
+   this.loadingCtrl.create({message: 'Deleting'}).then(loadingEl =>{
+     loadingEl.present();
+     this.tasksService.removeTask(taskId).subscribe(()=>{
+       loadingEl.dismiss();
+     })
+   })
   }
 
 
