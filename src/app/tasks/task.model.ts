@@ -7,7 +7,7 @@ export class Task{
         public dueDate: Date,
         public dueTime: string,
         public status: string,
-        public completed: string,
+        public completed: boolean,
 
     ) {
     }

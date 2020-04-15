@@ -54,11 +54,11 @@
         <ion-col size-sm="6" offset-sm="3" class="no-padding">
 
           <ion-list-header>Completed: </ion-list-header>
-          <ion-segment formControlName="completed" [value]="form.value.completed? 'yes' : 'no'">
-            <ion-segment-button  value="yes">
+          <ion-segment formControlName="completed" [value]="form.value.completed? true : false">
+            <ion-segment-button  value="true">
               <ion-label>Yes</ion-label>
             </ion-segment-button>
-            <ion-segment-button value="no">
+            <ion-segment-button value="false">
               <ion-label>No</ion-label>
             </ion-segment-button>
           </ion-segment>

@@ -21,7 +21,7 @@ export class CompletedPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.tasksSub = this.tasksService.tasks.subscribe(tasks =>{
       this.loadedTasks = tasks;
-      this.filteredTasks =  tasks.filter(obj => obj.completed === 'yes')
+      this.filteredTasks =  tasks.filter(obj => obj.completed === true)
 
     })
   }

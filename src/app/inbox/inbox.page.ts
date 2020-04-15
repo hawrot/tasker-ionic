@@ -29,7 +29,7 @@ export class InboxPage implements OnInit, OnDestroy {
 
   ngOnInit() {
    this.tasksSub = this.tasksService.tasks.subscribe(tasks =>{
-     this.loadedTasks = tasks.filter(obj => obj.completed === 'no');
+     this.loadedTasks = tasks.filter(obj => obj.completed === false);
 
    })
   }

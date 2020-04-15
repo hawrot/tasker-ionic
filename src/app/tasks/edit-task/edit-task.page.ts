@@ -78,20 +78,26 @@ export class EditTaskPage implements OnInit, OnDestroy {
   }
 
   onUpdate(){
+    let completed = false;
     if(!this.form.valid){
       return;
+    }
+    if(this.form.value.completed === 'true'){
+      completed = true;
     }
     this.loadingController.create({
       message: 'Updating place'
     })
         .then(loadingEl =>{
           loadingEl.present();
+          console.log(this.form.value.completed);
           this.tasksService
               .updateTask(
                   this.task.id,
                   this.form.value.title,
                   this.form.value.description,
-                  this.form.value.completed
+                  completed
+
               )
               .subscribe(()=>{
                 loadingEl.dismiss();
