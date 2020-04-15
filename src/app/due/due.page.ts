@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TasksService} from "../tasks/tasks.service";
 import {MenuController} from "@ionic/angular";
 import {Task} from "../tasks/task.model";
@@ -9,7 +9,7 @@ import {Subscription} from "rxjs";
   templateUrl: './due.page.html',
   styleUrls: ['./due.page.scss'],
 })
-export class DuePage implements OnInit {
+export class DuePage implements OnInit, OnDestroy {
 
   loadedTasks: Task[];
   private tasksSub: Subscription;

@@ -12,7 +12,7 @@ interface TaskData {
   dueDate: string,
   dueTime: string,
   status: string,
-  completed: boolean
+  completed: string
 
 }
 
@@ -62,7 +62,7 @@ private _tasks = new BehaviorSubject<Task[]>([]);
         new Date(dueDate),
         dueTime,
         "open",
-        false
+        'no'
     );
 
     return this.http.post<{name: string}>('https://honours-matthawrot.firebaseio.com/tasks.json', {
