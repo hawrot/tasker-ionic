@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Task} from "./task.model";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, of} from "rxjs";
 import {map, switchMap, take, tap} from "rxjs/operators";
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 
@@ -105,7 +105,32 @@ private _tasks = new BehaviorSubject<Task[]>([]);
 
   }
 
+updateTask(taskId: string, title: string, description: string){
+      let updatedTasks: Task[];
 
+    return this.tasks.pipe(take(1), switchMap(tasks =>{
+        if(!tasks || tasks.length <= 0){
+            return this.fetchPlaces();
+        }
+        else {
+            return of(tasks);
+        }
+    }),
+        switchMap(tasks =>{
+            const updatedTaskIndex = tasks.findIndex(t => t.id === taskId);
+            updatedTasks = [...tasks];
+            const oldTasks = updatedTasks[updatedTaskIndex];
+            updatedTasks[updatedTaskIndex] = new  Task(oldTasks.id, title, description, oldTasks.createdAt, oldTasks.dueDate, oldTasks.dueTime, oldTasks.status, oldTasks.completed);
+            this._tasks.next(updatedTasks);
+            return this.http.put('https://honours-matthawrot.firebaseio.com/tasks/${taskId}.json',
+                {...updatedTasks[updatedTaskIndex], id: null});
+
+        }),
+        tap(()=>{
+            this._tasks.next(updatedTasks);
+        })
+    )
+}
 
 
 }
