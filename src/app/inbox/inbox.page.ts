@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Task} from "../tasks/task.model";
 import {TasksService} from "../tasks/tasks.service";
 import {IonItemSliding, LoadingController, MenuController} from "@ionic/angular";
-import {Data} from "@angular/router";
+import {Data, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {FormControl} from "@angular/forms";
 import {debounceTime} from "rxjs/operators";
@@ -21,7 +21,7 @@ export class InboxPage implements OnInit, OnDestroy {
 
 
 
-  constructor(private tasksService: TasksService, private menu: MenuController, private loadingCtrl: LoadingController) {
+  constructor(private tasksService: TasksService, private menu: MenuController, private loadingCtrl: LoadingController, private router: Router) {
 
   }
 
@@ -50,7 +50,7 @@ export class InboxPage implements OnInit, OnDestroy {
     console.log('It works!' + event);
   }
   onEdit(taskId : string){
-    console.log('task id: ' + taskId);
+    this.router.navigate(['/tasks/edit-task', taskId])
   }
 
   onDeleteTask(taskId: string){
