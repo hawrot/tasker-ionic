@@ -24,6 +24,14 @@ const routes: Routes = [
     path: 'completed',
     loadChildren: () => import('./completed/completed.module').then( m => m.CompletedPageModule)
   },
+  {
+    path: 'map-modal',
+    loadChildren: () => import('./shared/map-modal/map-modal.module').then( m => m.MapModalPageModule)
+  },
+  {
+    path: 'location-picker',
+    loadChildren: () => import('./shared/location-picker/location-picker.module').then( m => m.LocationPickerPageModule)
+  },
 ];
 
 @NgModule({
