@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ModalController} from "@ionic/angular";
 import {HttpClient} from "@angular/common/http";
 import {MapModalComponent} from "../map-modal/map-modal.component";
-import {switchMap} from "rxjs/operators";
+import {map, switchMap} from "rxjs/operators";
 import {of} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {PlaceLocation} from "../../tasks/location.model";
@@ -81,4 +81,4 @@ export class LocationPickerComponent implements OnInit {
   }
 }
 
-}
+
