@@ -32,6 +32,9 @@
           <ion-label position="floating">Completed:</ion-label>
           <ion-input readonly="" value="{{task.completed}}"></ion-input>
         </ion-item>
+        <ion-item>
+          <ion-img [src]="task.imageUrl"></ion-img>
+        </ion-item>
       </ion-card>
     </ion-col>
   </ion-row>
