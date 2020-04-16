@@ -4,6 +4,7 @@ import {TasksService} from "../tasks.service";
 import {Router} from "@angular/router";
 import {LoadingController} from "@ionic/angular";
 import {PlaceLocation} from "../location.model";
+import {switchMap} from "rxjs/operators";
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -74,20 +75,36 @@ export class NewTaskPage implements OnInit {
     this.form.patchValue({ location: location });
   }
 
-  onCreateOffer(){
-    if(!this.form.valid){
+  onCreateOffer() {
+    if (!this.form.valid || !this.form.get('image').value) {
       return;
     }
-    this.loadingController.create({
-      message: 'Creating task...'
-    }).then(loadingEl =>{
-      loadingEl.present();
-      this.tasksService.addTask(this.form.value.title, this.form.value.description, new Date(this.form.value.setDueDate), this.form.value.setDueTime, this.form.value.location, this.form.value.image).subscribe(()=>{
-        loadingEl.dismiss();
-        this.form.reset();
-        this.router.navigate(['/']);
-      });
-    })
+    this.loadingController
+        .create({
+          message: 'Creating place...'
+        })
+        .then(loadingEl => {
+          loadingEl.present();
+          this.tasksService
+              .uploadImage(this.form.get('image').value)
+              .pipe(
+                  switchMap(uploadRes => {
+                    return this.tasksService.addTask(
+                        this.form.value.title,
+                        this.form.value.description,
+                        new Date(this.form.value.setDueDate),
+                        this.form.value.setDueTime,
+                        this.form.value.location,
+                        uploadRes.imageUrl
+                    );
+                  })
+              )
+              .subscribe(() => {
+                loadingEl.dismiss();
+                this.form.reset();
+                this.router.navigate(['/']);
+              });
+        });
   }
 
 }

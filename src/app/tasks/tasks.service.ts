@@ -59,7 +59,7 @@ private _tasks = new BehaviorSubject<Task[]>([]);
 
 
 
-  addTask(title: string, description: string, dueDate, dueTime, location: PlaceLocation, imageUrl){
+  addTask(title: string, description: string, dueDate, dueTime, location: PlaceLocation, imageUrl: string){
     let generatedId: string;
     const newTask = new Task(
         Math.random().toString(),
@@ -145,7 +145,7 @@ updateTask(taskId: string, title: string, description: string, completed: boolea
         const uploadData = new FormData();
         uploadData.append('image', image);
                 return this.http.post<{ imageUrl: string; imagePath: string }>(
-                    'https://us-central1-ionic-angular-course-f44b5.cloudfunctions.net/storeImage',
+                    'https://us-central1-honours-matthawrot.cloudfunctions.net/storeImage',
                     uploadData
                 );
             }
