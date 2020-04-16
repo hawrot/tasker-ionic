@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {TasksService} from "../tasks.service";
 import {Router} from "@angular/router";
 import {LoadingController} from "@ionic/angular";
+import {PlaceLocation} from "../location.model";
 
 @Component({
   selector: 'app-new-task',
@@ -24,8 +25,13 @@ export class NewTaskPage implements OnInit {
       title: new FormControl({updateOn: 'blur', validators: [Validators.required]}),
       description: new FormControl({updateOn: 'blur', validators: [Validators.required]}),
       setDueDate: new FormControl({updateOn: 'blur', validators: [Validators.required]}),
-      setDueTime: new FormControl({updateOn: 'blur', validators: [Validators.required]})
+      setDueTime: new FormControl({updateOn: 'blur', validators: [Validators.required]}),
+      location: new FormControl(null, { validators: [Validators.required] })
     })
+  }
+
+  onLocationPicked(location: PlaceLocation) {
+    this.form.patchValue({ location: location });
   }
 
   onCreateOffer(){
@@ -36,7 +42,7 @@ export class NewTaskPage implements OnInit {
       message: 'Creating task...'
     }).then(loadingEl =>{
       loadingEl.present();
-      this.tasksService.addTask(this.form.value.title, this.form.value.description, new Date(this.form.value.setDueDate), this.form.value.setDueTime).subscribe(()=>{
+      this.tasksService.addTask(this.form.value.title, this.form.value.description, new Date(this.form.value.setDueDate), this.form.value.setDueTime, this.form.value.location).subscribe(()=>{
         loadingEl.dismiss();
         this.form.reset();
         this.router.navigate(['/']);

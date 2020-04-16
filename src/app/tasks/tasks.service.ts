@@ -3,6 +3,7 @@ import {Task} from "./task.model";
 import {BehaviorSubject, of} from "rxjs";
 import {map, switchMap, take, tap} from "rxjs/operators";
 import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {PlaceLocation} from "./location.model";
 
 interface TaskData {
   id: string,
@@ -12,7 +13,8 @@ interface TaskData {
   dueDate: string,
   dueTime: string,
   status: string,
-  completed: boolean
+  completed: boolean,
+  location: PlaceLocation
 
 }
 
@@ -40,7 +42,8 @@ private _tasks = new BehaviorSubject<Task[]>([]);
                   new Date(resData[key].dueDate),
                   resData[key].dueTime,
                   resData[key].status,
-                  resData[key].completed
+                  resData[key].completed,
+                  resData[key].location
               ));
             }
           }
@@ -52,7 +55,9 @@ private _tasks = new BehaviorSubject<Task[]>([]);
         )
   };
 
-  addTask(title: string, description: string, dueDate, dueTime){
+
+
+  addTask(title: string, description: string, dueDate, dueTime, location: PlaceLocation){
     let generatedId: string;
     const newTask = new Task(
         Math.random().toString(),
@@ -62,7 +67,8 @@ private _tasks = new BehaviorSubject<Task[]>([]);
         new Date(dueDate),
         dueTime,
         "open",
-        false
+        false,
+        location
     );
 
     return this.http.post<{name: string}>('https://honours-matthawrot.firebaseio.com/tasks.json', {
@@ -120,7 +126,7 @@ updateTask(taskId: string, title: string, description: string, completed: boolea
             const updatedTaskIndex = tasks.findIndex(t => t.id === taskId);
             updatedTasks = [...tasks];
             const oldTasks = updatedTasks[updatedTaskIndex];
-            updatedTasks[updatedTaskIndex] = new  Task(oldTasks.id, title, description, oldTasks.createdAt, oldTasks.dueDate, oldTasks.dueTime, oldTasks.status, completed);
+            updatedTasks[updatedTaskIndex] = new  Task(oldTasks.id, title, description, oldTasks.createdAt, oldTasks.dueDate, oldTasks.dueTime, oldTasks.status, completed, oldTasks.location);
             this._tasks.next(updatedTasks);
             return this.http.put(`https://honours-matthawrot.firebaseio.com/tasks/${taskId}.json`,
                 {...updatedTasks[updatedTaskIndex], id: null});

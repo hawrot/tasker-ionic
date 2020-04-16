@@ -9,6 +9,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {HttpClientModule} from "@angular/common/http";
+import {LocationPickerComponent} from "./shared/location-picker/location-picker.component";
+import {MapModalComponent} from "./shared/map-modal/map-modal.component";
 
 @NgModule({
   declarations: [AppComponent],

@@ -1,3 +1,5 @@
+import {PlaceLocation} from "./location.model";
+
 export class Task{
     constructor(
         public id: string,
@@ -8,6 +10,7 @@ export class Task{
         public dueTime: string,
         public status: string,
         public completed: boolean,
+        public location: PlaceLocation
 
     ) {
     }
