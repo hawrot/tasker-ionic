@@ -10,7 +10,8 @@ export class Task{
         public dueTime: string,
         public status: string,
         public completed: boolean,
-        public location: PlaceLocation
+        public location: PlaceLocation,
+        public imageUrl: string
 
     ) {
     }

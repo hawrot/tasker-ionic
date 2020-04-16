@@ -14,7 +14,8 @@ interface TaskData {
   dueTime: string,
   status: string,
   completed: boolean,
-  location: PlaceLocation
+  location: PlaceLocation,
+  imageUrl: string
 
 }
 
@@ -43,7 +44,8 @@ private _tasks = new BehaviorSubject<Task[]>([]);
                   resData[key].dueTime,
                   resData[key].status,
                   resData[key].completed,
-                  resData[key].location
+                  resData[key].location,
+                  resData[key].imageUrl
               ));
             }
           }
@@ -57,7 +59,7 @@ private _tasks = new BehaviorSubject<Task[]>([]);
 
 
 
-  addTask(title: string, description: string, dueDate, dueTime, location: PlaceLocation){
+  addTask(title: string, description: string, dueDate, dueTime, location: PlaceLocation, imageUrl){
     let generatedId: string;
     const newTask = new Task(
         Math.random().toString(),
@@ -68,7 +70,9 @@ private _tasks = new BehaviorSubject<Task[]>([]);
         dueTime,
         "open",
         false,
-        location
+        location,
+        imageUrl
+
     );
 
     return this.http.post<{name: string}>('https://honours-matthawrot.firebaseio.com/tasks.json', {
@@ -126,7 +130,7 @@ updateTask(taskId: string, title: string, description: string, completed: boolea
             const updatedTaskIndex = tasks.findIndex(t => t.id === taskId);
             updatedTasks = [...tasks];
             const oldTasks = updatedTasks[updatedTaskIndex];
-            updatedTasks[updatedTaskIndex] = new  Task(oldTasks.id, title, description, oldTasks.createdAt, oldTasks.dueDate, oldTasks.dueTime, oldTasks.status, completed, oldTasks.location);
+            updatedTasks[updatedTaskIndex] = new  Task(oldTasks.id, title, description, oldTasks.createdAt, oldTasks.dueDate, oldTasks.dueTime, oldTasks.status, completed, oldTasks.location, oldTasks.imageUrl);
             this._tasks.next(updatedTasks);
             return this.http.put(`https://honours-matthawrot.firebaseio.com/tasks/${taskId}.json`,
                 {...updatedTasks[updatedTaskIndex], id: null});
@@ -137,6 +141,15 @@ updateTask(taskId: string, title: string, description: string, completed: boolea
         })
     )
 }
+    uploadImage(image: File) {
+        const uploadData = new FormData();
+        uploadData.append('image', image);
+                return this.http.post<{ imageUrl: string; imagePath: string }>(
+                    'https://us-central1-ionic-angular-course-f44b5.cloudfunctions.net/storeImage',
+                    uploadData
+                );
+            }
+
 
 
 }
