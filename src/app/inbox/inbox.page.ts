@@ -5,7 +5,8 @@ import {IonItemSliding, LoadingController, MenuController} from "@ionic/angular"
 import {Data, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {FormControl} from "@angular/forms";
-import {debounceTime} from "rxjs/operators";
+import {catchError, debounceTime} from "rxjs/operators";
+import {Plugins, PushNotification, PushNotificationToken, PushNotificationActionPerformed} from "@capacitor/core";
 
 @Component({
   selector: 'app-inbox',
@@ -30,8 +31,25 @@ export class InboxPage implements OnInit, OnDestroy {
   ngOnInit() {
    this.tasksSub = this.tasksService.tasks.subscribe(tasks =>{
      this.loadedTasks = tasks.filter(obj => obj.completed === false);
-
    })
+    Plugins.PushNotifications.requestPermission().then(result =>{
+      if(result.granted){
+        Plugins.PushNotifications.register();
+      }else {
+        console.log('Error occurred with push notifications')
+      }
+    });
+    Plugins.PushNotifications.addListener('pushNotificationReceived',
+        (notification: PushNotification) => {
+          alert('Push received: ' + JSON.stringify(notification));
+        }
+    );
+    Plugins.PushNotifications.addListener('pushNotificationActionPerformed',
+        (notification: PushNotificationActionPerformed) => {
+          alert('Push action performed: ' + JSON.stringify(notification));
+        }
+    );
+
   }
   ionViewWillEnter(){
     this.isLoading = true;

@@ -34,12 +34,29 @@
                   </ion-col>
                   <ion-col size="2" align="right">
 
-                    <ion-button (click)="onEdit(loadedTasks.id)" >
+                    <ion-fab horizontal="center" vertical="center" >
+                      <ion-fab-button color="secondary">
+                        <ion-icon name="chevron-back-circle-outline"></ion-icon>
+                      </ion-fab-button>
+                      <ion-fab-list side="start">
+                        <ion-fab-button color="success">
+                          <ion-icon name="checkmark-done-outline"></ion-icon>
+                        </ion-fab-button>
+                        <ion-fab-button (click)="onEdit(loadedTasks.id)" color="warning">
+                          <ion-icon name="create-outline"></ion-icon>
+                        </ion-fab-button>
+                        <ion-fab-button (click)="onDeleteTask(loadedTasks.id)" color="danger">
+                          <ion-icon  name="trash-outline"></ion-icon>
+                        </ion-fab-button>
+                      </ion-fab-list>
+                    </ion-fab>
+
+                    <!--<ion-button (click)="onEdit(loadedTasks.id)" >
                       <ion-icon name="create-outline" slot="icon-only"></ion-icon>
                     </ion-button>
                     <ion-button (click)="onDeleteTask(loadedTasks.id)" color="danger">
                       <ion-icon  name="trash-outline" slot="icon-only"></ion-icon>
-                    </ion-button>
+                    </ion-button>-->
                   </ion-col>
                 </ion-row>
 

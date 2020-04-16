@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TasksService} from "../tasks/tasks.service";
-import {LoadingController, MenuController} from "@ionic/angular";
+import {LoadingController, MenuController, ToastController} from "@ionic/angular";
 import {Task} from "../tasks/task.model";
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
@@ -17,7 +17,7 @@ export class DuePage implements OnInit, OnDestroy {
   isLoading = false;
   filteredTasks: Task[];
 
-  constructor(private tasksService: TasksService, private menu: MenuController, private router: Router, private loadingCtrl: LoadingController) { }
+  constructor(private tasksService: TasksService, private menu: MenuController, private router: Router, private loadingCtrl: LoadingController, private toastCtrl: ToastController) { }
 
   ngOnInit() {
     this.tasksSub = this.tasksService.tasks.subscribe(tasks =>{
@@ -53,6 +53,15 @@ export class DuePage implements OnInit, OnDestroy {
       loadingEl.present();
       this.tasksService.removeTask(taskId).subscribe(()=>{
         loadingEl.dismiss();
+        this.toastCtrl.create({
+          color: 'dark',
+          duration: 2000,
+          message: 'Deleted'
+        }).then(toastEl =>{
+          toastEl.present();
+        })
+
+
       })
     })
   }
