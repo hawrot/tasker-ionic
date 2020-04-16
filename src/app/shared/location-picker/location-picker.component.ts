@@ -5,6 +5,7 @@ import {MapModalComponent} from "../map-modal/map-modal.component";
 import {switchMap} from "rxjs/operators";
 import {of} from "rxjs";
 import {environment} from "../../../environments/environment";
+import {PlaceLocation} from "../../tasks/location.model";
 
 @Component({
   selector: 'app-location-picker',
@@ -37,7 +38,9 @@ export class LocationPickerComponent implements OnInit {
         this.getAddress(modalData.data.lat, modalData.data.lng)
             .pipe(
                 switchMap(address => {
-                  pickedLocation.address = address;
+                    if (typeof address === "string") {
+                        pickedLocation.address = address;
+                    }
                   return of(
                       this.getMapImage(pickedLocation.lat, pickedLocation.lng, 14)
                   );
