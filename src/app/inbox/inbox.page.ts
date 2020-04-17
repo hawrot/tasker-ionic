@@ -32,24 +32,6 @@ export class InboxPage implements OnInit, OnDestroy {
    this.tasksSub = this.tasksService.tasks.subscribe(tasks =>{
      this.loadedTasks = tasks.filter(obj => obj.completed === false);
    })
-    Plugins.PushNotifications.requestPermission().then(result =>{
-      if(result.granted){
-        Plugins.PushNotifications.register();
-      }else {
-        console.log('Error occurred with push notifications')
-      }
-    });
-    Plugins.PushNotifications.addListener('pushNotificationReceived',
-        (notification: PushNotification) => {
-          alert('Push received: ' + JSON.stringify(notification));
-        }
-    );
-    Plugins.PushNotifications.addListener('pushNotificationActionPerformed',
-        (notification: PushNotificationActionPerformed) => {
-          alert('Push action performed: ' + JSON.stringify(notification));
-        }
-    );
-
   }
   ionViewWillEnter(){
     this.isLoading = true;
