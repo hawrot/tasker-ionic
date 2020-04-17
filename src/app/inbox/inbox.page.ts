@@ -8,6 +8,9 @@ import {FormControl} from "@angular/forms";
 import {catchError, debounceTime} from "rxjs/operators";
 import {Plugins, PushNotification, PushNotificationToken, PushNotificationActionPerformed} from "@capacitor/core";
 
+
+
+
 @Component({
   selector: 'app-inbox',
   templateUrl: './inbox.page.html',
@@ -70,9 +73,5 @@ export class InboxPage implements OnInit, OnDestroy {
       })
     })
   }
-
-
-
-
 
 }
