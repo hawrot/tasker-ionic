@@ -49,7 +49,7 @@
                                                 <ion-icon name="chevron-back-circle-outline"></ion-icon>
                                             </ion-fab-button>
                                             <ion-fab-list side="start">
-                                                <ion-fab-button color="success">
+                                                <ion-fab-button (click)="onCompleteTask(loadedTasks.id)" color="success">
                                                     <ion-icon name="checkmark-done-outline"></ion-icon>
                                                 </ion-fab-button>
                                                 <ion-fab-button (click)="onEdit(loadedTasks.id)" color="warning">

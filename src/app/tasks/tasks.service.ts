@@ -141,6 +141,33 @@ updateTask(taskId: string, title: string, description: string, completed: boolea
         })
     )
 }
+    updateTaskStatus(taskId: string){
+        let updatedTasks: Task[];
+
+        return this.tasks.pipe(take(1), switchMap(tasks =>{
+                if(!tasks || tasks.length <= 0){
+                    return this.fetchPlaces();
+                }
+                else {
+                    return of(tasks);
+                }
+            }),
+            switchMap(tasks =>{
+                const updatedTaskIndex = tasks.findIndex(t => t.id === taskId);
+                updatedTasks = [...tasks];
+                const oldTasks = updatedTasks[updatedTaskIndex];
+                updatedTasks[updatedTaskIndex] = new  Task(oldTasks.id, oldTasks.title, oldTasks.description, oldTasks.createdAt, oldTasks.dueDate, oldTasks.dueTime, oldTasks.status, true, oldTasks.location, oldTasks.imageUrl);
+                this._tasks.next(updatedTasks);
+                return this.http.put(`https://honours-matthawrot.firebaseio.com/tasks/${taskId}.json`,
+                    {...updatedTasks[updatedTaskIndex], id: null});
+
+            }),
+            tap(()=>{
+                this._tasks.next(updatedTasks);
+            })
+        )
+    }
+
     uploadImage(image: File) {
         const uploadData = new FormData();
         uploadData.append('image', image);

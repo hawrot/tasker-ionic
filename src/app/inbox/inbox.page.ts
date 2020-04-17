@@ -62,6 +62,15 @@ export class InboxPage implements OnInit, OnDestroy {
    })
   }
 
+  onCompleteTask(taskId: string){
+    this.loadingCtrl.create({message: 'Updating'}).then(loadingEl =>{
+      loadingEl.present();
+      this.tasksService.updateTaskStatus(taskId).subscribe(()=>{
+        loadingEl.dismiss();
+      })
+    })
+  }
+
 
 
 
