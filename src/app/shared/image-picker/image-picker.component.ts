@@ -32,7 +32,7 @@ export class ImagePickerComponent implements OnInit {
 
   onPickImage() {
     if (!Capacitor.isPluginAvailable('Camera')) {
-      this.filePickerRef.nativeElement.click();
+
       return;
     }
     Plugins.Camera.getPhoto({
